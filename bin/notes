@@ -5,8 +5,7 @@ This code is released into public domain with no explicit or implied waranty.
 Use this code at your own risk, I am not to be held responsible if this code in any way causes damage to you/your computer/your loved ones.
 '''
 
-from gi.repository import Gtk
-from gi.repository import GObject
+from gi.repository import Gtk, Gdk, GObject
 import os
 import signal
 
@@ -47,6 +46,11 @@ class Notes(Gtk.Window):
         self.add(scrolledwindow)
         #We write to the file every ten milliseconds so that the process can easilly be killed without losing any information
         GObject.timeout_add(10,self.write_text)
+        self.connect("key-press-event", self.keypress)
+
+    def keypress(self,window,event):
+        if event.keyval == Gdk.KEY_Escape:
+            self.destroy()
 
     def write_text(self):
         ''' Take the text from the buffer and write it to a file. Nothing special. '''
