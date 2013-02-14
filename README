@@ -1,0 +1,14 @@
+A simple Gtk program that takes down notes. The notes are saved automatically so that next time you run the program, the note you took last time shows up. There is no way to save your notes into their own file, and no way to save multiple notes (besides using newlines). It does what it is supposed to do and nothing more.
+
+I use this as a floating notepad in xmonad for when I mostly stopped using the mouse. I suggest it be used with parcellite to save your clipboard history after you close the application.
+
+version history:
+    0.1: Initial version
+
+Requires:
+    Gtk3
+    GObject
+    GObjectIntrospection (No windows)
+
+To Build:
+    python2 setup.py install
