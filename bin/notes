@@ -36,6 +36,7 @@ class Notes(Gtk.Window):
         Gtk.Window.__init__(self, title="Dropdown Notes")
         self.filepath = filepath
         self.set_default_size(400, 200)
+        #Infinite sized window
         scrolledwindow = Gtk.ScrolledWindow()
         scrolledwindow.set_hexpand(True)
         scrolledwindow.set_vexpand(True)
@@ -44,21 +45,25 @@ class Notes(Gtk.Window):
         self.textbuffer.set_text(text)
         scrolledwindow.add(self.textview)
         self.add(scrolledwindow)
-        #We write to the file every ten milliseconds so that the process can easilly be killed without losing any information
-        GObject.timeout_add(10,self.write_text)
+        #Close on escape
         self.connect("key-press-event", self.keypress)
+        #Write out whenever the buffer is edited
+        self.textbuffer.connect("changed", self.buffer_changed)
 
     def keypress(self,window,event):
+        #Close on escape
         if event.keyval == Gdk.KEY_Escape:
             self.destroy()
 
+    def buffer_changed(self, *args):
+        ''' Whenever the text is changed, write it '''
+        self.write_text()
     def write_text(self):
         ''' Take the text from the buffer and write it to a file. Nothing special. '''
         start = self.textbuffer.get_start_iter()
         end = self.textbuffer.get_end_iter()
         with open(self.filepath,'w') as notesfile:
             notesfile.write(self.textbuffer.get_text(start, end, False))
-        return True
 
 def on_kill(*args):
     window = args[0];
