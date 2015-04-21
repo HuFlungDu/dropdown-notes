@@ -4,7 +4,7 @@ try:
 
     setup(
         name="notes",
-        version='0.1',
+        version='0.2',
         scripts=["bin/notes"]
     )
 except:

@@ -3,6 +3,7 @@ A simple Gtk program that takes down notes. The notes are saved automatically so
 I use this as a floating notepad in xmonad for when I mostly stopped using the mouse. I suggest it be used with parcellite to save your clipboard history after you close the application.
 
 version history:
+    0.2: Added undo/redo
     0.1: Initial version
 
 Requires:
